@@ -6,6 +6,9 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 public class SinglyLinkedListTest {
+    /***************************************************
+     * リスト挿入系のテスト
+     ***************************************************/
     @Test
     public void いろんな型でadd操作(){
         SinglyLinkedList<String> stringList = new SinglyLinkedList<String>();
@@ -38,6 +41,24 @@ public class SinglyLinkedListTest {
         list.add(1).add(1).add(1);
         assertThat(list.size(), is(3));
         //assertThat(list.size_property(), is(3));
+    }
 
+    /***************************************************
+     * リスト削除系のテスト
+     ***************************************************/
+    @Test
+    public void 削除の基本動作確認() {
+        SinglyLinkedList<Integer> list = new SinglyLinkedList<Integer>();
+        list.add(1).add(2);
+        list.removeLast();
+        assertThat(list.toString(), is("SinglyLinkedList{1}"));
+        list.removeLast();
+        assertThat(list.toString(), is("SinglyLinkedList{}"));
+
+        list.add(1).add(2);
+        list.removeFirst();
+        assertThat(list.toString(), is("SinglyLinkedList{2}"));
+        list.removeFirst();
+        assertThat(list.toString(), is("SinglyLinkedList{}"));
     }
 }
