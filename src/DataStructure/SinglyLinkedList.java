@@ -1,10 +1,6 @@
 package DataStructure;
 
 /**
- * Created by yuki_yanagi on 2014/05/17.
- */
-
-/**
  * Singly-linked list implementation
  */
 public class SinglyLinkedList<E> {
@@ -90,6 +86,21 @@ public class SinglyLinkedList<E> {
     }
 
     /***************************************************
+     * ノードのlink・unlinkメソッド
+     * 前後のnullチェックなどは行わず、
+     * 低レベルのlink・unlinkのみを行う。
+     ***************************************************/
+    /**
+     * 指定されたノードに新しい要素のノードをリンクする
+     * @param node リンク元のノード
+     * @param element リンクを張りたい要素
+     */
+    private void link(Node<E> node, E element) {
+        Node<E> newNode = new Node<E>(element, node.next);
+        node.next = newNode;
+    }
+
+    /***************************************************
      * 単一連結リストの挿入
      ***************************************************/
     /**
@@ -99,7 +110,7 @@ public class SinglyLinkedList<E> {
      * @param element 追加したい要素
      * @return 追加後のリスト
      */
-    public SinglyLinkedList add(E element) {
+    public SinglyLinkedList<E> add(E element) {
         if(last == null) {
             // リストが空だったとき
             this.first = new Node<E>(element, null);
@@ -117,7 +128,7 @@ public class SinglyLinkedList<E> {
      * @param element 追加したい要素
      * @return 追加後のリスト
      */
-    public SinglyLinkedList addFirst(E element) {
+    public SinglyLinkedList<E> addFirst(E element) {
         if(last == null) {
             //リストが空だったとき
             add(element);
@@ -133,19 +144,9 @@ public class SinglyLinkedList<E> {
      * @param element 追加したい要素
      * @return 追加後のリスト
      */
-    public SinglyLinkedList addLast(E element) {
+    public SinglyLinkedList<E> addLast(E element) {
         add(element);  // addと動作は同じ
         return this;
-    }
-
-    /**
-     * 指定されたノードに新しい要素のノードをリンクする
-     * @param node リンク元のノード
-     * @param element リンクを張りたい要素
-     */
-    private void link(Node<E> node, E element) {
-        Node<E> newNode = new Node<E>(element, node.next);
-        node.next = newNode;
     }
 
     /**
@@ -155,13 +156,46 @@ public class SinglyLinkedList<E> {
      * @return 追加後のリスト
      * @throws IndexOutOfBoundsException
      */
-    public SinglyLinkedList add(int index, E element) {
+    public SinglyLinkedList<E> add(int index, E element) {
         if(!isPositionIndex(index)) throw new IndexOutOfBoundsException();
         if(index == size) return add(element);
         if(index == 0) return addFirst(element);
 
         Node<E> beforeNewNode = node(index - 1);
         link(beforeNewNode, element);
+        return this;
+    }
+
+    /***************************************************
+     * 単一連結リストの削除
+     ***************************************************/
+    /**
+     * リストの最初の要素を削除
+     * @return
+     */
+    public SinglyLinkedList<E> removeFirst() {
+        if(last == null) return this;
+
+        first = first.next;
+        return this;
+    }
+
+    /**
+     * リストの最後の要素を削除
+     * todo: unlinkとlinkを使って書き直す
+     * @return
+     */
+    public SinglyLinkedList<E> removeLast() {
+        if(last == null) return this;
+        if(last == first){
+            last.item = null;
+            last = first = null;
+            return this;
+        }
+
+        last.item = null;
+        last = node( size() - 2 );
+        last.next = null;
         return this;
     }
 
