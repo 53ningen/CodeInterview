@@ -161,7 +161,7 @@ public class SinglyLinkedList<E> {
         if (index == 0) return addFirst(element);
 
         Node<E> beforeNewNode = node(index - 1);
-        link(beforeNewNode, new Node<E>(element, null));
+        link(beforeNewNode, new Node<E>(element, beforeNewNode.next));
 
         size++;
         return this;

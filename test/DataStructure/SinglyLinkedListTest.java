@@ -26,6 +26,15 @@ public class SinglyLinkedListTest {
 
         list.addLast(2).addLast(3).addLast(4);
         assertThat(list.toString(), is("SinglyLinkedList{1,2,3,4}"));
+
+        list.addFirst(5).addFirst(6).addLast(7);
+        assertThat(list.toString(), is("SinglyLinkedList{6,5,1,2,3,4,7}"));
+
+        list.addLast(8);
+        assertThat(list.toString(), is("SinglyLinkedList{6,5,1,2,3,4,7,8}"));
+
+        list.add(2,9);
+        assertThat(list.toString(), is("SinglyLinkedList{6,5,9,1,2,3,4,7,8}"));
     }
 
     @Test
