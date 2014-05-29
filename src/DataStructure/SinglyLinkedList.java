@@ -6,7 +6,6 @@ package DataStructure;
 public class SinglyLinkedList<E> {
     /**
      * 単方向連結リストのノード
-     *
      * @param <E> 型
      */
     private static class Node<E> {
@@ -21,6 +20,16 @@ public class SinglyLinkedList<E> {
 
     private int size = 0;
     private Node<E> first = null;   // リストの先頭要素を指すポインタ
+
+    /**
+     * コンストラクタ
+     * @param args リストに追加したい要素
+     */
+    public SinglyLinkedList(E... args){
+        for(E arg: args){
+            this.addLast(arg);
+        }
+    }
 
     /**
      * 与えられた整数値がリストのインデックスとして有効か判断する
@@ -46,9 +55,9 @@ public class SinglyLinkedList<E> {
         if (!isPositionIndex(index)) throw new IndexOutOfBoundsException();
 
         Node<E> current = first;
-        for (int i = 0; i < index; i++) {
+        for (int i = 0; i < index; i++)
             current = current.next;
-        }
+
         return current;
     }
 
@@ -65,7 +74,7 @@ public class SinglyLinkedList<E> {
         if (current == null) return 0;
 
         int count = 1;
-        while (current != null && current.next != null) {
+        while (current.next != null) {
             count++;
             current = current.next;
         }
@@ -160,8 +169,8 @@ public class SinglyLinkedList<E> {
         if (!isPositionIndex(index)) throw new IndexOutOfBoundsException();
         if (index == 0) return addFirst(element);
 
-        Node<E> beforeNewNode = node(index - 1);
-        link(beforeNewNode, new Node<E>(element, null));
+        Node<E> newNodePrev = node(index - 1);
+        link(newNodePrev, new Node<E>(element, newNodePrev.next));
 
         size++;
         return this;
@@ -228,5 +237,78 @@ public class SinglyLinkedList<E> {
             runner = runner.next;
         }
         return String.format("SinglyLinkedList{%s}", sb.toString());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof SinglyLinkedList)) return false;
+        SinglyLinkedList that = (SinglyLinkedList) o;
+
+        if (size != that.size) return false;
+
+        Node<E> current = first;
+        Node<E> thatCurrent = that.first;
+        while(current.next != null && thatCurrent.next != null){
+            if(current.item != thatCurrent.item)
+                return false;
+            current = current.next;
+            thatCurrent = thatCurrent.next;
+        }
+        return true;
+    }
+
+    /**
+     * Code Interview Chapter 2: Question 1
+     * ソートされていない連結リストから、重複する要素を削除するコードを書いてください
+     */
+    public void removeDuplication(){
+        // your codes goes here
+    }
+
+    /**
+     * Code Interview Chapter 2: Question 2
+     * 単方向連結リストにおいて、末尾から数えてk番目の要素を見つけるアルゴリズムを実装してください
+     */
+    public E getNthToLast(int n){
+        // your codes goes here
+        return null;
+    }
+
+    /**
+     * Code Interview Chapter 2: Question 3
+     * 単方向連結リストにおいて、中央の要素のみアクセス可能であるとします。その要素を削除するアルゴリズムを実装してください。
+     */
+    public E deleteCenterNode(int n){
+        // your codes goes here
+        // 中央の要素のみにしかアクセスできないという制約なのでまずは中央の要素をとる
+        Node<E> centerNode = this.node(size << 1);
+        Node<E> centerNextNode = centerNode.next;
+
+        centerNode.next = centerNextNode.next;
+        centerNode.item = centerNextNode.item;
+
+        centerNextNode.item = null;
+        centerNextNode.next = null;
+        return null;
+    }
+
+    /**
+     * Code Interview Chapter 2: Question 4
+     * ある数xが与えられたとき、連結リストの要素を並べ替え、xより小さいものが前にくるようにするコードを書いてください
+     */
+    public SinglyLinkedList<Integer> moveElementsToAheadLessThan(int x){
+        // your codes goes here
+        Node<E> current = first;
+        if (current == null) return (SinglyLinkedList<Integer>)this;
+
+        while (current.next != null) {
+            if((Integer)current.item > x){
+                this.add((Integer)current.item, null);
+
+            }
+            current = current.next;
+        }
+        return new SinglyLinkedList<Integer>();
     }
 }

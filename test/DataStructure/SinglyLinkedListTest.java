@@ -5,7 +5,25 @@ import org.junit.Test;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
+/**
+ * SinglyLinkedListの基本演算テスト
+ */
 public class SinglyLinkedListTest {
+    /**
+     * ************************************************
+     * コンストラクタのテスト
+     * *************************************************
+     */
+    @Test
+    public void コンストラクタのテスト() {
+        {
+            SinglyLinkedList<Integer> values = new SinglyLinkedList<Integer>(0, 1, 2, 3, 4, 5);
+            SinglyLinkedList<Integer> values2 =
+                    (new SinglyLinkedList<Integer>()).addLast(0).addLast(1).addLast(2).addLast(3).addLast(4).addLast(5);
+            assertThat(values, is(values2));
+        }
+    }
+
     /**
      * ************************************************
      * リスト挿入系のテスト
@@ -26,6 +44,15 @@ public class SinglyLinkedListTest {
 
         list.addLast(2).addLast(3).addLast(4);
         assertThat(list.toString(), is("SinglyLinkedList{1,2,3,4}"));
+
+        list.addFirst(5).addFirst(6).addLast(7);
+        assertThat(list.toString(), is("SinglyLinkedList{6,5,1,2,3,4,7}"));
+
+        list.addLast(8);
+        assertThat(list.toString(), is("SinglyLinkedList{6,5,1,2,3,4,7,8}"));
+
+        list.add(2,9);
+        assertThat(list.toString(), is("SinglyLinkedList{6,5,9,1,2,3,4,7,8}"));
     }
 
     @Test
