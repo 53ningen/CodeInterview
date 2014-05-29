@@ -5,7 +5,20 @@ import org.junit.Test;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
+/**
+ * SinglyLinkedListの基本演算テスト
+ */
 public class SinglyLinkedListTest {
+    /**
+     * ************************************************
+     * コンストラクタのテスト
+     * *************************************************
+     */
+    @Test
+    public void コンストラクタのテスト() {
+
+    }
+
     /**
      * ************************************************
      * リスト挿入系のテスト
