@@ -16,7 +16,12 @@ public class SinglyLinkedListTest {
      */
     @Test
     public void コンストラクタのテスト() {
-
+        {
+            SinglyLinkedList<Integer> values = new SinglyLinkedList<Integer>(0, 1, 2, 3, 4, 5);
+            SinglyLinkedList<Integer> values2 =
+                    (new SinglyLinkedList<Integer>()).addLast(0).addLast(1).addLast(2).addLast(3).addLast(4).addLast(5);
+            assertThat(values, is(values2));
+        }
     }
 
     /**

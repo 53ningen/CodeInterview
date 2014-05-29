@@ -1,5 +1,6 @@
 package DataStructure;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -13,7 +14,7 @@ public class SLLCodeInterviewTest {
      * Code Interview Chapter 2: Question 1
      * ソートされていない連結リストから、重複する要素を削除するコードを書いてください
      */
-    @Test
+    @Ignore
     public void removeDuplicationTest(){
         {
             // 単純な重複に対するテスト
@@ -43,7 +44,7 @@ public class SLLCodeInterviewTest {
      * Code Interview Chapter 2: Question 2
      * 単方向連結リストにおいて、末尾から数えてk番目の要素を見つけるアルゴリズムを実装してください
      */
-    @Test
+    @Ignore
     public void getNthToLastTest(){
         {
             SinglyLinkedList<Integer> list = new SinglyLinkedList<Integer>();
@@ -65,5 +66,23 @@ public class SLLCodeInterviewTest {
             assertThat(list.getNthToLast(3), is(2));
             assertThat(list.getNthToLast(4), is(1));
         }
+    }
+
+    /**
+     * Code Interview Chapter 2: Question 3
+     * 単方向連結リストにおいて、中央の要素のみアクセス可能であるとします。その要素を削除するアルゴリズムを実装してください。
+     */
+    @Test
+    public void deleteCenterNodeTest() {
+
+    }
+
+    /**
+     * Code Interview Chapter 2: Question 4
+     * ある数xが与えられたとき、連結リストの要素を並べ替え、xより小さいものが前にくるようにするコードを書いてください
+     */
+    @Test
+    public void moveElementsToAheadLessThanTest(){
+
     }
 }

@@ -6,7 +6,6 @@ package DataStructure;
 public class SinglyLinkedList<E> {
     /**
      * 単方向連結リストのノード
-     *
      * @param <E> 型
      */
     private static class Node<E> {
@@ -240,6 +239,25 @@ public class SinglyLinkedList<E> {
         return String.format("SinglyLinkedList{%s}", sb.toString());
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof SinglyLinkedList)) return false;
+        SinglyLinkedList that = (SinglyLinkedList) o;
+
+        if (size != that.size) return false;
+
+        Node<E> current = first;
+        Node<E> thatCurrent = that.first;
+        while(current.next != null && thatCurrent.next != null){
+            if(current.item != thatCurrent.item)
+                return false;
+            current = current.next;
+            thatCurrent = thatCurrent.next;
+        }
+        return true;
+    }
+
     /**
      * Code Interview Chapter 2: Question 1
      * ソートされていない連結リストから、重複する要素を削除するコードを書いてください
@@ -263,6 +281,15 @@ public class SinglyLinkedList<E> {
      */
     public E deleteCenterNode(int n){
         // your codes goes here
+        // 中央の要素のみにしかアクセスできないという制約なのでまずは中央の要素をとる
+        Node<E> centerNode = this.node(size << 1);
+        Node<E> centerNextNode = centerNode.next;
+
+        centerNode.next = centerNextNode.next;
+        centerNode.item = centerNextNode.item;
+
+        centerNextNode.item = null;
+        centerNextNode.next = null;
         return null;
     }
 
@@ -270,8 +297,18 @@ public class SinglyLinkedList<E> {
      * Code Interview Chapter 2: Question 4
      * ある数xが与えられたとき、連結リストの要素を並べ替え、xより小さいものが前にくるようにするコードを書いてください
      */
-    public SinglyLinkedList<E> sort(){
+    public SinglyLinkedList<Integer> moveElementsToAheadLessThan(int x){
         // your codes goes here
-        return new SinglyLinkedList<E>();
+        Node<E> current = first;
+        if (current == null) return (SinglyLinkedList<Integer>)this;
+
+        while (current.next != null) {
+            if((Integer)current.item > x){
+                this.add((Integer)current.item, null);
+
+            }
+            current = current.next;
+        }
+        return new SinglyLinkedList<Integer>();
     }
 }
