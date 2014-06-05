@@ -1,5 +1,8 @@
 package DataStructure;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Singly-linked list implementation
  */
@@ -236,7 +239,7 @@ public class SinglyLinkedList<E> {
             sb.append(",");
             runner = runner.next;
         }
-        return String.format("SinglyLinkedList{%s}", sb.toString());
+        return String.format("SinglyLinkedList{size: %d, elements: [%s]}", size, sb.toString());
     }
 
     @Override
@@ -246,6 +249,7 @@ public class SinglyLinkedList<E> {
         SinglyLinkedList that = (SinglyLinkedList) o;
 
         if (size != that.size) return false;
+        if (size == 0 && that.size == 0) return true;
 
         Node<E> current = first;
         Node<E> thatCurrent = that.first;
@@ -258,12 +262,40 @@ public class SinglyLinkedList<E> {
         return true;
     }
 
+    @Override
+    public int hashCode() {
+        int result = size;
+        result = 31 * result + (first != null ? first.hashCode() : 0);
+        return result;
+    }
+
     /**
      * Code Interview Chapter 2: Question 1
      * ソートされていない連結リストから、重複する要素を削除するコードを書いてください
      */
-    public void removeDuplication(){
+    public SinglyLinkedList<E> removeDuplication(){
         // your codes goes here
+        Set<E> nodes = new HashSet<E>();
+        Node<E> current = this.first;
+        Node<E> previous = null;
+
+        if(current == null)
+            return this;
+
+        while(current != null) {
+            if(nodes.contains(current.item)) {
+                previous.next = current.next;
+                size--;
+            }
+            else {
+                nodes.add(current.item);
+            }
+
+            previous = current;
+            current = current.next;
+        }
+        return this;
+
     }
 
     /**
@@ -272,43 +304,65 @@ public class SinglyLinkedList<E> {
      */
     public E getNthToLast(int n){
         // your codes goes here
-        return null;
+        if(n < 0 || n > size - 1) throw new IndexOutOfBoundsException();
+        Node<E> current = first;
+        int number = size - n - 1;
+
+        while(number > 0) {
+            current = current.next;
+            number--;
+        }
+        return current.item;
     }
 
     /**
      * Code Interview Chapter 2: Question 3
      * 単方向連結リストにおいて、中央の要素のみアクセス可能であるとします。その要素を削除するアルゴリズムを実装してください。
      */
-    public E deleteCenterNode(int n){
+    public SinglyLinkedList<E> deleteCenterNode(){
         // your codes goes here
         // 中央の要素のみにしかアクセスできないという制約なのでまずは中央の要素をとる
-        Node<E> centerNode = this.node(size << 1);
+        Node<E> centerNode = this.node( size >> 1 );
+        if(centerNode.next == null) {
+            this.first = null;
+            this.size--;
+            return this;
+        }
         Node<E> centerNextNode = centerNode.next;
 
-        centerNode.next = centerNextNode.next;
-        centerNode.item = centerNextNode.item;
+        if(centerNextNode != null) {
+            centerNode.next = centerNextNode.next;
+            centerNode.item = centerNextNode.item;
+        }
 
         centerNextNode.item = null;
         centerNextNode.next = null;
-        return null;
+        this.size--;
+        return this;
     }
 
     /**
      * Code Interview Chapter 2: Question 4
      * ある数xが与えられたとき、連結リストの要素を並べ替え、xより小さいものが前にくるようにするコードを書いてください
      */
-    public SinglyLinkedList<Integer> moveElementsToAheadLessThan(int x){
+    public SinglyLinkedList<Integer> moveElementsToAheadLessThan(Integer x){
         // your codes goes here
         Node<E> current = first;
         if (current == null) return (SinglyLinkedList<Integer>)this;
 
+        SinglyLinkedList<Integer> newValues = new SinglyLinkedList<Integer>();
         while (current.next != null) {
-            if((Integer)current.item > x){
-                this.add((Integer)current.item, null);
+            if((Integer)current.item < x)
+                newValues.addFirst((Integer)current.item);
+            else
+                newValues.addLast((Integer)current.item);
 
-            }
+
             current = current.next;
         }
-        return new SinglyLinkedList<Integer>();
+        this.first = (Node<E>)newValues.first;
+        this.size = newValues.size;
+
+        return newValues;
     }
 }
