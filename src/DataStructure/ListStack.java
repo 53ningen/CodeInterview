@@ -45,8 +45,13 @@ public class ListStack<E> {
         }
     }
 
+    /**
+     * ListStackのコンストラクタ
+     * @param args 要素
+     */
     public ListStack(E... args){
-        // not implemented
+        for(E arg: args)
+            this.push(arg);
     }
 
     /**
