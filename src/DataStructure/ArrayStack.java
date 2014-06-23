@@ -17,6 +17,24 @@ public class ArrayStack<E> {
     }
 
     /**
+     * ArrayStackのコンストラクタ．
+     * argsの長さがstackMaxSizeよりも大きい場合，
+     * argsの長さ分の配列が確保される
+     * @param stackMaxSize stackの最大長
+     * @param args stackの初期化要素
+     */
+    public ArrayStack(int stackMaxSize, E... args) {
+        if(args.length < stackMaxSize)
+            stackMaxSize = args.length;
+
+        this.stackMaxSize = stackMaxSize;
+        array = new Object[stackMaxSize];
+
+        for(E arg: args)
+            this.push(arg);
+    }
+
+    /**
      * dataをスタックに挿入する
      * @param data 挿入したいデータ
      */
