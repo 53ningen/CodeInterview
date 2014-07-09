@@ -1,6 +1,5 @@
-package DataStructure;
+package DataStructure.queue;
 
-import DataStructure.queue.Queue;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
