@@ -59,14 +59,15 @@ public class ListQueue<E> extends Queue<E> {
      */
     @Override
     public E dequeue() {
-        if(isEmpty() return null;
+        if(isEmpty()) return null;
 
-        E ret;
-        ret = head.item;
+        E tmp;
+        tmp = head.item;
         head = head.next;
         size--;
-        /* リストが空になった */
+        
+        // リストが空になった
         if(isEmpty()) tail = null;
-        return ret;
+        return tmp;
     }
 }
