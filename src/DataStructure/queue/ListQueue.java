@@ -11,6 +11,7 @@ public class ListQueue<E> extends Queue<E> {
 
     int size = 0;
     @Override public int size() { return size; }
+    @Override public boolean isEmpty() { return head == null; }
 
     /**
      * Queueのノード
@@ -42,7 +43,7 @@ public class ListQueue<E> extends Queue<E> {
      */
     @Override
     public void enqueue(E e) {
-        if(head == null) {
+        if(isEmpty()) {
             head = tail = new Node<E>(e, null);
         }
         else {
@@ -58,18 +59,14 @@ public class ListQueue<E> extends Queue<E> {
      */
     @Override
     public E dequeue() {
-        if(head == null) return null;
+        if(isEmpty() return null;
 
-        E tmp;
-        if(head.next == null) {
-            tmp = head.item;
-            head = tail = null;
-        }
-        else {
-            tmp = head.item;
-            head = head.next;
-        }
+        E ret;
+        ret = head.item;
+        head = head.next;
         size--;
-        return tmp;
+        /* リストが空になった */
+        if(isEmpty()) tail = null;
+        return ret;
     }
 }
