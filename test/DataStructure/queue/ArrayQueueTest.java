@@ -6,16 +6,16 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 
-public class ListQueueTest {
+public class ArrayQueueTest {
     @Test
     public void 空のリストに対してポップするとnullが返る() {
-        Queue<Integer> valuesQueue = new ListQueue<Integer>();
+        Queue<Integer> valuesQueue = new ArrayQueue<Integer>();
         assertNull(valuesQueue.dequeue());
     }
 
     @Test
     public void 一通りキューの利用手順を踏めるか() {
-        Queue<Integer> valuesQueue = new ListQueue<Integer>();
+        Queue<Integer> valuesQueue = new ArrayQueue<Integer>();
         for(int i = 0; i < 2; i++) {
             // 空のキューに対するdequeueはnullを返す
             assertNull(valuesQueue.dequeue());
@@ -29,7 +29,6 @@ public class ListQueueTest {
 
             assertThat(valuesQueue.dequeue(), is(3));
             assertThat(valuesQueue.size(), is(1));
-
 
             assertThat(valuesQueue.dequeue(), is(4));
             assertThat(valuesQueue.size(), is(0));
